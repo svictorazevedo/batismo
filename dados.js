@@ -66,6 +66,7 @@ const BATISMO = {
       { nome: "Bianca Camille Gomes Costa", lider: "Márcio Silva" },
       { nome: "Victoria Matias Cunha", lider: "Lucas Duarte" },
       { nome: "Guilherme Costa de Almeida e Silva", lider: "Emanuelly Lima" },
+      { nome: "Christian Gabriell Faria Lopes", lider: "Sandy Brisch" },
     ],
     Jovens: [
       { nome: "Amabily Barbosa Souza", lider: "Jhonatan Richard" },
