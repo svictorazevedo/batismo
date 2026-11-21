@@ -11,8 +11,15 @@ const BATISMO = {
 
   redes: {
     Juvenis: [
-      { nome: "Eloá Barbosa de Oliveira", lider: "" },
-      { nome: "Heloisa Souza Cardoso", lider: "" },
+      { nome: "Eloá Barbosa de Oliveira", lider: "Elaine" },
+      { nome: "Heloisa Souza Cardoso", lider: "Giullia" },
+      { nome: "Maria Helena Rodrigues da Silva", lider: "Jolane" },
+      { nome: "Nycolas Gabriel Lima Amaral", lider: "Jolane" },
+      { nome: "Jhony Costa da Cruz", lider: "Érica" },
+      { nome: "Henzo Gabriel da Silva Barros", lider: "Luzia" },
+      { nome: "Julia Gabriela da Costa Silva", lider: "Luzia" },
+      { nome: "Robson Nunes Medeiros de Oliveira", lider: "Daiane" },
+      { nome: "Yasmin Santos da Silva", lider: "Daiane" },
       { nome: "Isadora Batista Fonseca", lider: "Ana Karolina" },
       { nome: "Arielly Cezário da Silva Barbosa", lider: "Jessica Lara" },
       { nome: "Isaque Emanuel da Silva Campos", lider: "Jessica Lara" },
