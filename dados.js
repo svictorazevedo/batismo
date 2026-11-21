@@ -107,6 +107,8 @@ const BATISMO = {
       { nome: "Paulo Henrique Senabio da Silva Fidelis", lider: "Matheus Almeida" },
       { nome: "Luis Felipe Marcelino de Lara", lider: "Gabi" },
       { nome: "Wanessa Botelho", lider: "Iã" },
+      { nome: "Yan Rysherd Pacheco Campos", lider: "Nercy (discipuladora Nayra)" },
+      { nome: "Reinaldo Rodrigues Ferreira", lider: "Nercy (discipuladora Nayra)" },
     ],
     Adultos: [
       { nome: "Rafael Alves Cordeiro", lider: "Heleno (discipulador Sebastião Mário)" },
