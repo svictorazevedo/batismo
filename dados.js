@@ -109,7 +109,7 @@ const BATISMO = {
     ],
     Adultos: [
       { nome: "Rafael Alves Cordeiro", lider: "Heleno (discipulador Sebastião Mário)" },
-      { nome: "Sérgio Prado de Oliveira Júnior", lider: "Victor Azevedo" },
+      { nome: "Sérgio Prado de Oliveira Júnior", lider: "Jucinei (discipulador Victor Azevedo)" },
     ],
   },
 };
