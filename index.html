@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista de Batismo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#fff; --text:#1b2333; --muted:#6b7487; --line:#e4e8f0;
+    --ok:#1f9d63; --ok-bg:#e5f6ee; --warn:#d9822b; --warn-bg:#fdf0e3;
+    --brand:#2563eb; --brand-2:#0ea5e9;
+    --juvenis:#8b5cf6; --adolescentes:#ec4899; --jovens:#0ea5e9; --adultos:#f59e0b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0f141d; --card:#171e2b; --text:#e8ecf3; --muted:#97a1b4; --line:#263044;
+      --ok-bg:#12352a; --warn-bg:#3a2a16; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+  header{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:36px 16px 72px;text-align:center}
+  header h1{margin:0;font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:-.5px}
+  header p{margin:6px 0 0;opacity:.9}
+  header .upd{font-size:13px;opacity:.8;margin-top:10px}
+  main{max-width:1100px;margin:-48px auto 40px;padding:0 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 18px rgba(20,30,60,.06)}
+  .resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+  .kpi{padding:20px}
+  .kpi .lbl{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .kpi .num{font-size:40px;font-weight:800;margin-top:4px}
+  .kpi.ok .num{color:var(--ok)} .kpi.warn .num{color:var(--warn)}
+  .kpi .sub{font-size:13px;color:var(--muted)}
+  .redes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+  .rede{padding:18px;border-top:5px solid var(--c);cursor:pointer;transition:transform .15s}
+  .rede:hover{transform:translateY(-2px)}
+  .rede.sel{outline:2px solid var(--c)}
+  .rede h3{margin:0 0 8px;font-size:17px;display:flex;justify-content:space-between;align-items:center}
+  .rede h3 span{font-size:26px;font-weight:800;color:var(--c)}
+  .linha{display:flex;justify-content:space-between;font-size:14px;margin:4px 0}
+  .linha b.ok{color:var(--ok)} .linha b.warn{color:var(--warn)}
+  .bar{height:8px;border-radius:99px;background:var(--warn-bg);overflow:hidden;margin-top:10px}
+  .bar i{display:block;height:100%;background:var(--ok);border-radius:99px}
+  .pct{font-size:12px;color:var(--muted);margin-top:4px}
+  .lista{padding:18px}
+  .ferr{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .ferr input{flex:1;min-width:200px;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:14px;cursor:pointer}
+  .chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .grupo{margin-top:18px}
+  .grupo h4{margin:0 0 8px;padding-left:10px;border-left:4px solid var(--c);font-size:16px}
+  .grupo h4 small{color:var(--muted);font-weight:500}
+  ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px}
+  li{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:var(--bg);font-size:15px}
+  li .n{color:var(--muted);font-size:12px;min-width:22px}
+  li .tag{margin-left:auto;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
+  li.inc{border:1px dashed var(--warn)}
+  .vazio{color:var(--muted);font-size:14px;padding:8px 2px}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 30px}
+  @media (max-width:900px){.redes{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.resumo{grid-template-columns:1fr}.redes{grid-template-columns:1fr}.kpi .num{font-size:32px}}
+  @media print{header{padding:16px;color:#000;background:none}main{margin-top:0}.ferr{display:none}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="titulo">Batismo</h1>
+  <p id="subtitulo"></p>
+  <div class="upd" id="upd"></div>
+</header>
+<main>
+  <section class="resumo">
+    <div class="card kpi"><div class="lbl">Total de batizandos</div><div class="num" id="kTotal">0</div><div class="sub">em todas as redes</div></div>
+    <div class="card kpi ok"><div class="lbl">Nome completo</div><div class="num" id="kOk">0</div><div class="sub" id="kOkP"></div></div>
+    <div class="card kpi warn"><div class="lbl">Nome incompleto</div><div class="num" id="kInc">0</div><div class="sub" id="kIncP"></div></div>
+  </section>
+  <section class="redes" id="redes"></section>
+  <section class="card lista">
+    <div class="ferr">
+      <input id="busca" type="search" placeholder="Buscar nome...">
+      <div class="chips" id="filtro">
+        <button class="chip on" data-f="todos">Todos</button>
+        <button class="chip" data-f="completo">Completos</button>
+        <button class="chip" data-f="incompleto">Incompletos</button>
+      </div>
+    </div>
+    <div id="grupos"></div>
+  </section>
+</main>
+<footer>Clique em uma rede para filtrar a lista · Nomes marcados como <b>incompleto</b> precisam do sobrenome</footer>
+<script src="dados.js"></script>
+<script>
+const CORES = {Juvenis:"var(--juvenis)", Adolescentes:"var(--adolescentes)", Jovens:"var(--jovens)", Adultos:"var(--adultos)"};
+const CONECT = new Set(["de","da","do","das","dos","e","d"]);
+const limpa = s => String(s).trim().replace(/\s+/g, " ");
+const completo = n => limpa(n).split(" ").filter(p => p.length > 1 && !CONECT.has(p.toLowerCase())).length >= 2;
+const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const $ = id => document.getElementById(id);
+
+const D = BATISMO;
+$("titulo").textContent = D.titulo || "Batismo";
+$("subtitulo").textContent = D.subtitulo || "";
+if (D.atualizadoEm) $("upd").textContent = "Atualizado em " + D.atualizadoEm;
+
+const redes = Object.entries(D.redes).map(([nome, lista]) => {
+  const pessoas = lista.map(limpa).filter(Boolean).map(n => ({n, ok: completo(n)}));
+  const ok = pessoas.filter(p => p.ok).length;
+  return {nome, pessoas, total: pessoas.length, ok, inc: pessoas.length - ok};
+});
+const T = redes.reduce((a, r) => a + r.total, 0), OK = redes.reduce((a, r) => a + r.ok, 0);
+$("kTotal").textContent = T; $("kOk").textContent = OK; $("kInc").textContent = T - OK;
+$("kOkP").textContent = pct(OK, T) + "% do total"; $("kIncP").textContent = pct(T - OK, T) + "% do total";
+
+let redeSel = null, filtro = "todos";
+function cards() {
+  $("redes").innerHTML = redes.map(r => `
+    <div class="card rede ${redeSel === r.nome ? "sel" : ""}" style="--c:${CORES[r.nome] || "var(--brand)"}" data-r="${r.nome}">
+      <h3>${r.nome}<span>${r.total}</span></h3>
+      <div class="linha">Completos <b class="ok">${r.ok}</b></div>
+      <div class="linha">Incompletos <b class="warn">${r.inc}</b></div>
+      <div class="bar"><i style="width:${pct(r.ok, r.total)}%"></i></div>
+      <div class="pct">${pct(r.ok, r.total)}% com nome completo</div>
+    </div>`).join("");
+}
+function lista() {
+  const q = norm($("busca").value.trim());
+  $("grupos").innerHTML = redes.filter(r => !redeSel || r.nome === redeSel).map(r => {
+    const ps = r.pessoas.map((p, i) => ({...p, i: i + 1})).filter(p =>
+      (filtro === "todos" || (filtro === "completo") === p.ok) && (!q || norm(p.n).includes(q)));
+    const itens = ps.map(p => `<li class="${p.ok ? "" : "inc"}"><span class="n">${p.i}</span>${esc(p.n)}${p.ok ? "" : '<span class="tag">incompleto</span>'}</li>`).join("");
+    return `<div class="grupo" style="--c:${CORES[r.nome] || "var(--brand)"}">
+      <h4>${r.nome} <small>(${ps.length})</small></h4>
+      ${ps.length ? `<ol>${itens}</ol>` : `<div class="vazio">${r.total ? "Nenhum nome encontrado." : "Nenhum nome cadastrado ainda."}</div>`}
+    </div>`;
+  }).join("");
+}
+$("redes").onclick = e => {
+  const c = e.target.closest(".rede"); if (!c) return;
+  redeSel = redeSel === c.dataset.r ? null : c.dataset.r; cards(); lista();
+};
+$("filtro").onclick = e => {
+  const b = e.target.closest(".chip"); if (!b) return; filtro = b.dataset.f;
+  $("filtro").querySelectorAll(".chip").forEach(x => x.classList.toggle("on", x === b)); lista();
+};
+$("busca").oninput = lista;
+cards(); lista();
+</script>
+</body>
+</html>
