@@ -49,7 +49,13 @@
   .chip{padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:14px;cursor:pointer}
   .chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
   .grupo{margin-top:18px}
-  .grupo h4{margin:0 0 8px;padding-left:10px;border-left:4px solid var(--c);font-size:16px}
+  .grupo-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .grupo h4{margin:0;padding-left:10px;border-left:4px solid var(--c);font-size:16px}
+  .btn-exp{padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .btn-exp:hover{border-color:var(--brand);color:var(--brand)}
+  .btn-exp:disabled{opacity:.4;cursor:default}
+  .btn-exp.forte{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .btn-exp.forte:hover{color:#fff;filter:brightness(1.1)}
   .grupo h4 small{color:var(--muted);font-weight:500}
   ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px}
   li{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:var(--bg);font-size:15px}
@@ -84,6 +90,7 @@
         <button class="chip" data-f="completo">Completos</button>
         <button class="chip" data-f="incompleto">Incompletos</button>
       </div>
+      <button class="btn-exp forte" id="expTodas">⬇ Exportar todas as redes</button>
     </div>
     <div id="grupos"></div>
   </section>
@@ -132,7 +139,10 @@ function lista() {
       (filtro === "todos" || (filtro === "completo") === p.ok) && (!q || norm(p.n).includes(q)));
     const itens = ps.map(p => `<li class="${p.ok ? "" : "inc"}"><span class="n">${p.i}</span>${esc(p.n)}${p.ok ? "" : '<span class="tag">incompleto</span>'}</li>`).join("");
     return `<div class="grupo" style="--c:${CORES[r.nome] || "var(--brand)"}">
-      <h4>${r.nome} <small>(${ps.length})</small></h4>
+      <div class="grupo-top">
+        <h4>${r.nome} <small>(${ps.length})</small></h4>
+        <button class="btn-exp" data-exp="${r.nome}" ${r.total ? "" : "disabled"}>⬇ Exportar ${r.nome}</button>
+      </div>
       ${ps.length ? `<ol>${itens}</ol>` : `<div class="vazio">${r.total ? "Nenhum nome encontrado." : "Nenhum nome cadastrado ainda."}</div>`}
     </div>`;
   }).join("");
@@ -146,6 +156,24 @@ $("filtro").onclick = e => {
   $("filtro").querySelectorAll(".chip").forEach(x => x.classList.toggle("on", x === b)); lista();
 };
 $("busca").oninput = lista;
+
+// Exporta CSV (abre direto no Excel: separador ";" e UTF-8 com BOM)
+function exportar(lista, arquivo) {
+  const cel = v => `"${String(v).replace(/"/g, '""')}"`;
+  const linhas = [["Nº", "Nome", "Rede", "Situação"].map(cel).join(";")];
+  lista.forEach(r => r.pessoas.forEach((p, i) =>
+    linhas.push([i + 1, p.n, r.nome, p.ok ? "Completo" : "Incompleto"].map(cel).join(";"))));
+  const blob = new Blob(["﻿" + linhas.join("\r\n")], {type: "text/csv;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = arquivo + ".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+$("grupos").onclick = e => {
+  const b = e.target.closest("[data-exp]"); if (!b) return;
+  exportar(redes.filter(r => r.nome === b.dataset.exp), "batismo-" + b.dataset.exp.toLowerCase());
+};
+$("expTodas").onclick = () => exportar(redes, "batismo-todas-as-redes");
 cards(); lista();
 </script>
 </body>
