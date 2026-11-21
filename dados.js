@@ -89,7 +89,7 @@ const BATISMO = {
       { nome: "Mayara Vitória Santos de Melo", lider: "Jhonatan Richard" },
       { nome: "Larissa Arruda Ramos", lider: "Iã Ary" },
       { nome: "Daiene Maia", lider: "Juan Santana" },
-      { nome: "Gabriel Arthur", lider: "Emelly Reis", incompleto: true },
+      { nome: "Gabriel Arthur Matos de Oliveira", lider: "Emelly Reis" },
       { nome: "Keila Tieko Dariam", lider: "Lucas Azevedo" },
       { nome: "Sandryanne Ferreira Batalha", lider: "Matheus Moraes" },
       { nome: "Evellen Kamilly Rodrigues Barbosa", lider: "Heloyse Mollina" },
