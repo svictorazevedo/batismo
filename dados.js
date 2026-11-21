@@ -28,7 +28,7 @@ const BATISMO = {
       { nome: "Lucas Gonçalves", lider: "Jusciane" },
       { nome: "Davi Henrique Soares Gonçalves", lider: "Jusciane" },
       { nome: "Maria Helena de Arruda dos Santos", lider: "Nathaly" },
-      { nome: "Arthur Alves Godoy", lider: "Kamily" },
+      { nome: "Carlos Miguel Pereira Nascimento", lider: "Kamily" },
     ],
     Adolescentes: [
       { nome: "Izabely Vitória Silva Avelino Costa", lider: "Felipe Morais" },
