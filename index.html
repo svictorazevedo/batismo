@@ -117,7 +117,7 @@
   <div id="mCorpo"></div>
 </div></div>
 <footer>Clique nos números para ver a lista com os líderes · Clique em uma rede para filtrar · Nomes marcados como <b>incompleto</b> precisam do sobrenome</footer>
-<script src="dados.js"></script>
+<script>document.write('<script src="dados.js?t=' + Date.now() + '"><\/script>');</script>
 <script>
 const CORES = {Juvenis:"var(--juvenis)", Adolescentes:"var(--adolescentes)", Jovens:"var(--jovens)", Adultos:"var(--adultos)"};
 const CONECT = new Set(["de","da","do","das","dos","e","d"]);
