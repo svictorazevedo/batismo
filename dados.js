@@ -52,7 +52,7 @@ const BATISMO = {
       { nome: "Yan Kennedy Ramos da Silva", lider: "Rafael Banegas", presente: true },
       { nome: "Gabrielly Baptista Nunes de Oliveira", lider: "Nicoly Meireles", presente: true },
       { nome: "Ana Rafaela Almeida Cassemiro", lider: "Felippe Morais", presente: true },
-      { nome: "Anna Luiza Araújo da Cruz", lider: "Márcio Silva" },
+      { nome: "Anna Luiza Araújo da Cruz", lider: "Márcio Silva", presente: true },
       { nome: "Gustavo Domingos", lider: "Joelton", presente: true },
       { nome: "Ana Clara Ferreira", lider: "Marcos V. Souza", presente: true },
       { nome: "Larissa Alves Santos", lider: "Marcos H", presente: true },
