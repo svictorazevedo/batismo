@@ -69,6 +69,10 @@ const BATISMO = {
       { nome: "Victoria Matias Cunha", lider: "Lucas Duarte", presente: true },
       { nome: "Guilherme Costa de Almeida e Silva", lider: "Emanuelly Lima", presente: true },
       { nome: "Christian Gabriell Faria Lopes", lider: "Sandy Brisch" },
+      { nome: "Guilherme Henrique", lider: "Gabriel", incompleto: true, batizado: true },
+      { nome: "Tamilly Naindre", lider: "Gabriel", incompleto: true, batizado: true },
+      { nome: "Gabrielly Vitória", lider: "Evillin", incompleto: true, batizado: true },
+      { nome: "Raissa da Silva", lider: "Lucas Duarte", incompleto: true, batizado: true },
     ],
     Jovens: [
       { nome: "Amabily Barbosa Souza", lider: "Jhonatan Richard", presente: true },
