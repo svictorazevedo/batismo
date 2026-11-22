@@ -94,7 +94,7 @@ const BATISMO = {
       { nome: "Gabriel Arthur Matos de Oliveira", lider: "Emelly Reis" },
       { nome: "Keila Tieko Dariam", lider: "Lucas Azevedo" },
       { nome: "Sandryanne Ferreira Batalha", lider: "Matheus Moraes", presente: true },
-      { nome: "Evellen Kamilly Rodrigues Barbosa", lider: "Heloyse Mollina" },
+      { nome: "Evellen Kamilly Rodrigues Barbosa", lider: "Heloyse Mollina", presente: true },
       { nome: "Edna Souza", lider: "Ana Carolina Arruda", presente: true },
       { nome: "Harison Kaian Alves da Silva", lider: "Victor Lucas", presente: true },
       { nome: "Manoel Lino de Oliveira Neto", lider: "Vitor Prado", presente: true },
