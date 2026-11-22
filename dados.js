@@ -9,7 +9,7 @@
 const BATISMO = {
   titulo: "Batismo",
   subtitulo: "Lista de batizandos por rede · 21/11 às 19h30",
-  atualizadoEm: "22/11/2026",
+  atualizadoEm: "21/11/2026",
 
   redes: {
     Juvenis: [
