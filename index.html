@@ -10,12 +10,12 @@
   :root{
     --bg:#f4f6fb; --card:#fff; --text:#1b2333; --muted:#6b7487; --line:#e4e8f0;
     --ok:#1f9d63; --ok-bg:#e5f6ee; --warn:#d9822b; --warn-bg:#fdf0e3;
-    --brand:#2563eb; --brand-2:#0ea5e9;
+    --brand:#2563eb; --pres:#0f766e; --pres-bg:#d7f3ee; --brand-2:#0ea5e9;
     --juvenis:#8b5cf6; --adolescentes:#ec4899; --jovens:#0ea5e9; --adultos:#f59e0b;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#0f141d; --card:#171e2b; --text:#e8ecf3; --muted:#97a1b4; --line:#263044;
-      --ok-bg:#12352a; --warn-bg:#3a2a16; }
+      --ok-bg:#12352a; --warn-bg:#3a2a16; --pres:#5eead4; --pres-bg:#113a35; }
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
@@ -25,11 +25,11 @@
   header .upd{font-size:13px;opacity:.8;margin-top:10px}
   main{max-width:1100px;margin:-48px auto 40px;padding:0 16px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 18px rgba(20,30,60,.06)}
-  .resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+  .resumo{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
   .kpi{padding:20px}
   .kpi .lbl{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
   .kpi .num{font-size:40px;font-weight:800;margin-top:4px}
-  .kpi.ok .num{color:var(--ok)} .kpi.warn .num{color:var(--warn)}
+  .kpi.ok .num{color:var(--ok)} .kpi.warn .num{color:var(--warn)} .kpi.pres .num{color:var(--pres)}
   .kpi .sub{font-size:13px;color:var(--muted)}
   .redes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
   .rede{padding:18px;border-top:5px solid var(--c);cursor:pointer;transition:transform .15s}
@@ -62,6 +62,11 @@
   li .n{color:var(--muted);font-size:12px;min-width:22px}
   li .tag{margin-left:auto;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
   li.inc{border:1px dashed var(--warn)}
+  li .pr{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--pres-bg);color:var(--pres);white-space:nowrap}
+  li .tag + .pr{margin-left:4px} li .nm + .pr{margin-left:auto}
+  li.pres{box-shadow:inset 4px 0 0 var(--pres)}
+  .linha b.pres{color:var(--pres)}
+  .modal td.pr{color:var(--pres);font-weight:700}
   .vazio{color:var(--muted);font-size:14px;padding:8px 2px}
   li .nm{display:flex;flex-direction:column;line-height:1.25}
   li .ld{font-size:12px;color:var(--muted)}
@@ -81,7 +86,7 @@
   .modal th{font-size:12px;color:var(--muted);text-transform:uppercase}
   .modal td.inc{color:var(--warn);font-weight:700}
   footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 30px}
-  @media (max-width:900px){.redes{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:900px){.redes,.resumo{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:560px){.resumo{grid-template-columns:1fr}.redes{grid-template-columns:1fr}.kpi .num{font-size:32px}}
   @media print{header{padding:16px;color:#000;background:none}main{margin-top:0}.ferr{display:none}.card{box-shadow:none}}
 </style>
@@ -97,6 +102,7 @@
     <div class="card kpi"><div class="lbl">Total de batizandos</div><div class="num clic" id="kTotal" data-m="todos">0</div><div class="sub">em todas as redes</div></div>
     <div class="card kpi ok"><div class="lbl">Nome completo</div><div class="num clic" id="kOk" data-m="completo">0</div><div class="sub" id="kOkP"></div></div>
     <div class="card kpi warn"><div class="lbl">Nome incompleto</div><div class="num clic" id="kInc" data-m="incompleto">0</div><div class="sub" id="kIncP"></div><div class="hint">Clique no número para ver nomes e líderes</div></div>
+    <div class="card kpi pres"><div class="lbl">Presentes</div><div class="num clic" id="kPres" data-m="presente">0</div><div class="sub" id="kPresP"></div><div class="hint">Ausentes: <b class="clic" id="kAus" data-m="ausente">0</b></div></div>
   </section>
   <section class="redes" id="redes"></section>
   <section class="card lista">
@@ -106,6 +112,8 @@
         <button class="chip on" data-f="todos">Todos</button>
         <button class="chip" data-f="completo">Completos</button>
         <button class="chip" data-f="incompleto">Incompletos</button>
+        <button class="chip" data-f="presente">Presentes</button>
+        <button class="chip" data-f="ausente">Ausentes</button>
       </div>
       <button class="btn-exp forte" id="expTodas">⬇ Exportar todas as redes</button>
     </div>
@@ -116,7 +124,7 @@
   <div class="mt"><h2 id="mTit"></h2><button class="fechar" id="mFechar" aria-label="Fechar">×</button></div>
   <div id="mCorpo"></div>
 </div></div>
-<footer>Clique nos números para ver a lista com os líderes · Clique em uma rede para filtrar · Nomes marcados como <b>incompleto</b> precisam do sobrenome</footer>
+<footer>Clique nos números para ver a lista com os líderes · Clique em uma rede para filtrar · Nomes marcados como <b>incompleto</b> precisam do sobrenome · <b>✓ presente</b> = confirmado no local</footer>
 <script>document.write('<script src="dados.js?t=' + Date.now() + '"><\/script>');</script>
 <script>
 const CORES = {Juvenis:"var(--juvenis)", Adolescentes:"var(--adolescentes)", Jovens:"var(--jovens)", Adultos:"var(--adultos)"};
@@ -135,14 +143,18 @@ if (D.atualizadoEm) $("upd").textContent = "Atualizado em " + D.atualizadoEm;
 
 const redes = Object.entries(D.redes).map(([nome, lista]) => {
   const pessoas = lista.map(p => typeof p === "string" ? {nome: p} : p)
-    .map(p => ({n: limpa(p.nome || ""), l: limpa(p.lider || ""), inc: !!p.incompleto}))
-    .filter(p => p.n).map(p => ({n: p.n, l: p.l, ok: !p.inc && completo(p.n)}));
-  const ok = pessoas.filter(p => p.ok).length;
-  return {nome, pessoas, total: pessoas.length, ok, inc: pessoas.length - ok};
+    .map(p => ({n: limpa(p.nome || ""), l: limpa(p.lider || ""), inc: !!p.incompleto, pr: !!p.presente}))
+    .filter(p => p.n).map(p => ({n: p.n, l: p.l, pr: p.pr, ok: !p.inc && completo(p.n)}));
+  const ok = pessoas.filter(p => p.ok).length, pres = pessoas.filter(p => p.pr).length;
+  return {nome, pessoas, total: pessoas.length, ok, inc: pessoas.length - ok, pres};
 });
 const T = redes.reduce((a, r) => a + r.total, 0), OK = redes.reduce((a, r) => a + r.ok, 0);
 $("kTotal").textContent = T; $("kOk").textContent = OK; $("kInc").textContent = T - OK;
 $("kOkP").textContent = pct(OK, T) + "% do total"; $("kIncP").textContent = pct(T - OK, T) + "% do total";
+const PR = redes.reduce((a, r) => a + r.pres, 0);
+$("kPres").textContent = PR; $("kPresP").textContent = pct(PR, T) + "% do total"; $("kAus").textContent = T - PR;
+// Filtro comum: todos / completo / incompleto / presente / ausente
+const passa = (p, f) => f === "todos" || (f === "completo" && p.ok) || (f === "incompleto" && !p.ok) || (f === "presente" && p.pr) || (f === "ausente" && !p.pr);
 
 let redeSel = null, filtro = "todos";
 function cards() {
@@ -151,6 +163,7 @@ function cards() {
       <h3>${r.nome}<span class="clic" data-m="todos" data-mr="${r.nome}">${r.total}</span></h3>
       <div class="linha">Completos <b class="ok clic" data-m="completo" data-mr="${r.nome}">${r.ok}</b></div>
       <div class="linha">Incompletos <b class="warn clic" data-m="incompleto" data-mr="${r.nome}">${r.inc}</b></div>
+      <div class="linha">Presentes <b class="pres clic" data-m="presente" data-mr="${r.nome}">${r.pres} de ${r.total}</b></div>
       <div class="bar"><i style="width:${pct(r.ok, r.total)}%"></i></div>
       <div class="pct">${pct(r.ok, r.total)}% com nome completo</div>
     </div>`).join("");
@@ -159,8 +172,8 @@ function lista() {
   const q = norm($("busca").value.trim());
   $("grupos").innerHTML = redes.filter(r => !redeSel || r.nome === redeSel).map(r => {
     const ps = r.pessoas.map((p, i) => ({...p, i: i + 1})).filter(p =>
-      (filtro === "todos" || (filtro === "completo") === p.ok) && (!q || norm(p.n + " " + p.l).includes(q)));
-    const itens = ps.map(p => `<li class="${p.ok ? "" : "inc"}"><span class="n">${p.i}</span><span class="nm"><span>${esc(p.n)}</span><span class="ld">Líder: ${esc(p.l || "não informado")}</span></span>${p.ok ? "" : '<span class="tag">incompleto</span>'}</li>`).join("");
+      passa(p, filtro) && (!q || norm(p.n + " " + p.l).includes(q)));
+    const itens = ps.map(p => `<li class="${p.ok ? "" : "inc"} ${p.pr ? "pres" : ""}"><span class="n">${p.i}</span><span class="nm"><span>${esc(p.n)}</span><span class="ld">Líder: ${esc(p.l || "não informado")}</span></span>${p.ok ? "" : '<span class="tag">incompleto</span>'}${p.pr ? '<span class="pr">✓ presente</span>' : ""}</li>`).join("");
     return `<div class="grupo" style="--c:${CORES[r.nome] || "var(--brand)"}">
       <div class="grupo-top">
         <h4>${r.nome} <small>(${ps.length})</small></h4>
@@ -171,16 +184,16 @@ function lista() {
   }).join("");
 }
 // Janela com a lista (nome + líder) ao clicar num número
-const TIT = {todos: "Todos os batizandos", completo: "Nomes completos", incompleto: "Nomes incompletos"};
+const TIT = {todos: "Todos os batizandos", completo: "Nomes completos", incompleto: "Nomes incompletos", presente: "Presentes", ausente: "Ausentes"};
 function abrirModal(tipo, rede) {
   const sel = redes.filter(r => !rede || r.nome === rede);
   $("mTit").textContent = TIT[tipo] + (rede ? " · " + rede : "");
   $("mCorpo").innerHTML = sel.map(r => {
-    const ps = r.pessoas.filter(p => tipo === "todos" || (tipo === "completo") === p.ok);
+    const ps = r.pessoas.filter(p => passa(p, tipo));
     return `<div class="grupo" style="--c:${CORES[r.nome] || "var(--brand)"}">
       <h4>${r.nome} <small>(${ps.length})</small></h4>
-      ${ps.length ? `<table><tr><th>#</th><th>Nome</th><th>Líder</th></tr>${ps.map((p, i) =>
-        `<tr><td>${i + 1}</td><td class="${p.ok ? "" : "inc"}">${esc(p.n)}</td><td>${esc(p.l || "não informado")}</td></tr>`).join("")}</table>`
+      ${ps.length ? `<table><tr><th>#</th><th>Nome</th><th>Líder</th><th>Presença</th></tr>${ps.map((p, i) =>
+        `<tr><td>${i + 1}</td><td class="${p.ok ? "" : "inc"}">${esc(p.n)}</td><td>${esc(p.l || "não informado")}</td><td class="${p.pr ? "pr" : ""}">${p.pr ? "✓ Presente" : "—"}</td></tr>`).join("")}</table>`
         : `<div class="vazio">Nenhum nome.</div>`}
     </div>`;
   }).join("");
@@ -207,9 +220,9 @@ $("busca").oninput = lista;
 // Exporta CSV (abre direto no Excel: separador ";" e UTF-8 com BOM)
 function exportar(lista, arquivo) {
   const cel = v => `"${String(v).replace(/"/g, '""')}"`;
-  const linhas = [["Nº", "Nome", "Líder", "Rede", "Situação"].map(cel).join(";")];
+  const linhas = [["Nº", "Nome", "Líder", "Rede", "Situação", "Presença"].map(cel).join(";")];
   lista.forEach(r => r.pessoas.forEach((p, i) =>
-    linhas.push([i + 1, p.n, p.l, r.nome, p.ok ? "Completo" : "Incompleto"].map(cel).join(";"))));
+    linhas.push([i + 1, p.n, p.l, r.nome, p.ok ? "Completo" : "Incompleto", p.pr ? "Presente" : "Ausente"].map(cel).join(";"))));
   const blob = new Blob(["﻿" + linhas.join("\r\n")], {type: "text/csv;charset=utf-8"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob); a.download = arquivo + ".csv";
