@@ -2,34 +2,35 @@
 //  LISTA DE BATISMO — edite apenas este arquivo
 //  Cada pessoa: { nome: "...", lider: "...", incompleto: true }
 //  "presente: true" = pessoa confirmada no local do batismo.
+//  "batizado: true" = batismo realizado (já conta como presente).
 //  "incompleto: true" = falta sobrenome (ex.: "Luiz David" é só nome composto).
 //  Nomes de uma palavra só também contam como incompletos automaticamente.
 // ===============================================================
 const BATISMO = {
   titulo: "Batismo",
   subtitulo: "Lista de batizandos por rede · 21/11 às 19h30",
-  atualizadoEm: "21/11/2026",
+  atualizadoEm: "22/11/2026",
 
   redes: {
     Juvenis: [
       { nome: "Eloá Barbosa de Oliveira", lider: "Elaine" },
       { nome: "Heloisa Souza Cardoso", lider: "Giullia" },
-      { nome: "Maria Helena Rodrigues da Silva", lider: "Jolane", presente: true },
-      { nome: "Nycolas Gabriel Lima Amaral", lider: "Jolane", presente: true },
+      { nome: "Maria Helena Rodrigues da Silva", lider: "Jolane", presente: true, batizado: true },
+      { nome: "Nycolas Gabriel Lima Amaral", lider: "Jolane", presente: true, batizado: true },
       { nome: "Jhony Costa da Cruz", lider: "Érica" },
-      { nome: "Henzo Gabriel da Silva Barros", lider: "Luzia", presente: true },
-      { nome: "Julia Gabriela da Costa Silva", lider: "Luzia", presente: true },
+      { nome: "Henzo Gabriel da Silva Barros", lider: "Luzia", presente: true, batizado: true },
+      { nome: "Julia Gabriela da Costa Silva", lider: "Luzia", presente: true, batizado: true },
       { nome: "Robson Nunes Medeiros de Oliveira", lider: "Daiane" },
-      { nome: "Yasmin Santos da Silva", lider: "Daiane", presente: true },
-      { nome: "Isadora Batista Fonseca", lider: "Ana Karolina", presente: true },
-      { nome: "Arielly Cezário da Silva Barbosa", lider: "Jessica Lara" },
-      { nome: "Isaque Emanuel da Silva Campos", lider: "Jessica Lara", presente: true },
+      { nome: "Yasmin Santos da Silva", lider: "Daiane", presente: true, batizado: true },
+      { nome: "Isadora Batista Fonseca", lider: "Ana Karolina", presente: true, batizado: true },
+      { nome: "Arielly Cezário da Silva Barbosa", lider: "Jessica Lara", batizado: true },
+      { nome: "Isaque Emanuel da Silva Campos", lider: "Jessica Lara", presente: true, batizado: true },
       { nome: "Henzo Gabriel Santos de Oliveira", lider: "Kamila A." },
       { nome: "Heitor Almeida Corecha", lider: "Kamila A." },
       { nome: "Lucas Gonçalves", lider: "Jusciane" },
       { nome: "Davi Henrique Soares Gonçalves", lider: "Jusciane" },
-      { nome: "Maria Helena de Arruda dos Santos", lider: "Nathaly", presente: true },
-      { nome: "Carlos Miguel Pereira Nascimento", lider: "Kamily", presente: true },
+      { nome: "Maria Helena de Arruda dos Santos", lider: "Nathaly", presente: true, batizado: true },
+      { nome: "Carlos Miguel Pereira Nascimento", lider: "Kamily", presente: true, batizado: true },
     ],
     Adolescentes: [
       { nome: "Izabely Vitória Silva Avelino Costa", lider: "Felipe Morais", presente: true },
